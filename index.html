@@ -72,14 +72,14 @@
                 ],
                 staticLabels: {
                     font: "10px sans-serif", // Police des labels
-                    labels: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000], // Labels des graduations
+                    labels: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000], // Labels des graduations
                     color: "#000000", // Couleur des labels
                     fractionDigits: 0 // Nombre de chiffres après la virgule
                 }
             };
             const target = document.getElementById('powerGauge'); // Sélectionne l'élément canvas
             const gauge = new Gauge(target).setOptions(opts); // Crée le compteur
-            gauge.maxValue = 8000; // Valeur maximale
+            gauge.maxValue = 9000; // Valeur maximale
             gauge.setMinValue(0); // Valeur minimale
             gauge.animationSpeed = 32; // Vitesse de l'animation
             gauge.set(power); // Définit la valeur actuelle
