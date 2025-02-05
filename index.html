@@ -40,11 +40,11 @@
 
         function createGauge(power) {
             const opts = {
-                angle: 0.15, // Angle de départ de l'aiguille
+                angle: 0, // Angle de départ de l'aiguille
                 lineWidth: 0.2, // Largeur de la ligne
                 radiusScale: 1, // Échelle du rayon
                 pointer: {
-                    length: 0.6, // Longueur de l'aiguille
+                    length: 0.5, // Longueur de l'aiguille
                     strokeWidth: 0.035, // Largeur de l'aiguille
                     color: '#000000' // Couleur de l'aiguille
                 },
@@ -57,7 +57,7 @@
                 highDpiSupport: true, // Support haute résolution
                 staticZones: [
                     {strokeStyle: "#30B32D", min: 0, max: 6000}, // Zone verte
-                    {strokeStyle: "#FFDD00", min: 6000, max: 8000} // Zone rouge
+                    {strokeStyle: "#ff0019", min: 6000, max: 8000} // Zone rouge
                 ],
                 staticLabels: {
                     font: "10px sans-serif", // Police des labels
