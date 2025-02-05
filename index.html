@@ -10,14 +10,14 @@
             margin: 20px;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gaugeJS/dist/gauge.min.js"></script>
 </head>
 <body>
-    <h1>MY FARME EVO SOLAREDGE</h1>
+    <h1>Data de l'onduleur SolarEdge</h1>
     <div class="data-container" id="data-container">
         Chargement des données...
     </div>
-    <canvas id="powerGauge" width="100" height="100"></canvas>
+    <canvas id="powerGauge" width="400" height="400"></canvas>
     
     <script>
         const apiKey = 'U20GVSVPQU87ZM78GR31541OUXVQRYI6';
@@ -39,29 +39,39 @@
         }
 
         function createGauge(power) {
-            const ctx = document.getElementById('powerGauge').getContext('2d');
-            const gauge = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [power, 8000 - power],
-                        backgroundColor: [
-                            power > 4000 ? 'red' : 'green',
-                            '#e0e0e0'
-                        ],
-                        borderWidth: 0
-                    }]
+            const opts = {
+                angle: 0,
+                lineWidth: 0.2,
+                radiusScale: 1,
+                pointer: {
+                    length: 0.6,
+                    strokeWidth: 0.035,
+                    color: '#000000'
                 },
-                options: {
-                    circumference: Math.PI,
-                    rotation: Math.PI,
-                    cutout: '80%',
-                    plugins: {
-                        tooltip: { enabled: false },
-                        legend: { display: false }
-                    }
+                limitMax: false,
+                limitMin: false,
+                colorStart: '#6FADCF',
+                colorStop: '#8FC0DA',
+                strokeColor: '#E0E0E0',
+                generateGradient: true,
+                highDpiSupport: true,
+                staticZones: [
+                    {strokeStyle: "#30B32D", min: 0, max: 6000},
+                    {strokeStyle: "#FFDD00", min: 6000, max: 8000}
+                ],
+                staticLabels: {
+                    font: "10px sans-serif",
+                    labels: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000],
+                    color: "#000000",
+                    fractionDigits: 0
                 }
-            });
+            };
+            const target = document.getElementById('powerGauge');
+            const gauge = new Gauge(target).setOptions(opts);
+            gauge.maxValue = 8000;
+            gauge.setMinValue(0);
+            gauge.animationSpeed = 32;
+            gauge.set(power);
         }
 
         function displayData(data) {
