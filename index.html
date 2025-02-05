@@ -17,7 +17,7 @@
     <div class="data-container" id="data-container">
         Chargement des données...
     </div>
-    <canvas id="powerGauge" width="100" height="100"></canvas>
+    <canvas id="powerGauge" width="400" height="400"></canvas>
     
     <script>
         const apiKey = 'U20GVSVPQU87ZM78GR31541OUXVQRYI6';
@@ -40,38 +40,38 @@
 
         function createGauge(power) {
             const opts = {
-                angle: 0,
-                lineWidth: 0.2,
-                radiusScale: 1,
+                angle: 0.15, // Angle de départ de l'aiguille
+                lineWidth: 0.2, // Largeur de la ligne
+                radiusScale: 1, // Échelle du rayon
                 pointer: {
-                    length: 0.6,
-                    strokeWidth: 0.035,
-                    color: '#000000'
+                    length: 0.6, // Longueur de l'aiguille
+                    strokeWidth: 0.035, // Largeur de l'aiguille
+                    color: '#000000' // Couleur de l'aiguille
                 },
-                limitMax: false,
-                limitMin: false,
-                colorStart: '#6FADCF',
-                colorStop: '#8FC0DA',
-                strokeColor: '#E0E0E0',
+                limitMax: false, // Si vrai, la valeur maximale est fixe
+                limitMin: false, // Si vrai, la valeur minimale est fixe
+                colorStart: '#6FADCF', // Couleur de départ du gradient
+                colorStop: '#8FC0DA', // Couleur de fin du gradient
+                strokeColor: '#E0E0E0', // Couleur de la ligne de fond
                 generateGradient: true,
-                highDpiSupport: true,
+                highDpiSupport: true, // Support haute résolution
                 staticZones: [
-                    {strokeStyle: "#30B32D", min: 0, max: 6000},
-                    {strokeStyle: "#FFDD00", min: 6000, max: 8000}
+                    {strokeStyle: "#30B32D", min: 0, max: 6000}, // Zone verte
+                    {strokeStyle: "#FFDD00", min: 6000, max: 8000} // Zone rouge
                 ],
                 staticLabels: {
-                    font: "10px sans-serif",
-                    labels: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000],
-                    color: "#000000",
-                    fractionDigits: 0
+                    font: "10px sans-serif", // Police des labels
+                    labels: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000], // Labels des graduations
+                    color: "#000000", // Couleur des labels
+                    fractionDigits: 0 // Nombre de chiffres après la virgule
                 }
             };
-            const target = document.getElementById('powerGauge');
-            const gauge = new Gauge(target).setOptions(opts);
-            gauge.maxValue = 8000;
-            gauge.setMinValue(0);
-            gauge.animationSpeed = 32;
-            gauge.set(power);
+            const target = document.getElementById('powerGauge'); // Sélectionne l'élément canvas
+            const gauge = new Gauge(target).setOptions(opts); // Crée le compteur
+            gauge.maxValue = 8000; // Valeur maximale
+            gauge.setMinValue(0); // Valeur minimale
+            gauge.animationSpeed = 32; // Vitesse de l'animation
+            gauge.set(power); // Définit la valeur actuelle
         }
 
         function displayData(data) {
