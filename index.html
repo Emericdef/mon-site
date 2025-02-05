@@ -13,12 +13,12 @@
             margin: 0;
         }
         .data-container {
-            margin: 40px;
+            margin: 5px;
             text-align: center;
         }
         #powerGauge {
             display: block;
-            margin: 100px;
+            margin: 20px auto;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gaugeJS/dist/gauge.min.js"></script>
@@ -28,7 +28,7 @@
     <div class="data-container" id="data-container">
         Chargement des données...
     </div>
-    <canvas id="powerGauge" width="400" height="400"></canvas>
+    <canvas id="powerGauge" width="600" height="600"></canvas>
     
     <script>
         const apiKey = 'HYQWORGCASH2AVT943FWJJ7366KEA60A';
@@ -42,6 +42,7 @@
                     throw new Error(`Erreur : ${response.status} ${response.statusText}`);
                 }
                 const data = await response.json();
+                console.log(data); // Ajoutez cette ligne pour vérifier les données
                 displayData(data);
                 createGauge(data.overview.currentPower.power);
             } catch (error) {
@@ -51,7 +52,7 @@
 
         function createGauge(power) {
             const opts = {
-                angle: 0.1, // Angle de départ de l'aiguille
+                angle: 0.15, // Angle de départ de l'aiguille
                 lineWidth: 0.2, // Largeur de la ligne
                 radiusScale: 1, // Échelle du rayon
                 pointer: {
@@ -59,8 +60,8 @@
                     strokeWidth: 0.035, // Largeur de l'aiguille
                     color: '#000000' // Couleur de l'aiguille
                 },
-                limitMax: true, // Si vrai, la valeur maximale est fixe
-                limitMin: true, // Si vrai, la valeur minimale est fixe
+                limitMax: false, // Si vrai, la valeur maximale est fixe
+                limitMin: false, // Si vrai, la valeur minimale est fixe
                 colorStart: '#6FADCF', // Couleur de départ du gradient
                 colorStop: '#8FC0DA', // Couleur de fin du gradient
                 strokeColor: '#E0E0E0', // Couleur de la ligne de fond
@@ -72,17 +73,17 @@
                 ],
                 staticLabels: {
                     font: "10px sans-serif", // Police des labels
-                    labels: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000], // Labels des graduations
+                    labels: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000], // Labels des graduations
                     color: "#000000", // Couleur des labels
                     fractionDigits: 0 // Nombre de chiffres après la virgule
                 }
             };
-            const target = document.getElementById('powerGauge'); // Sélectionne l'élément canvas
-            const gauge = new Gauge(target).setOptions(opts); // Crée le compteur
-            gauge.maxValue = 9000; // Valeur maximale
+            const target = document.getElementById('powerGauge');
+            const gauge = new Gauge(target).setOptions(opts);
+            gauge.maxValue = 8000; // Valeur maximale ajustée
             gauge.setMinValue(0); // Valeur minimale
             gauge.animationSpeed = 32; // Vitesse de l'animation
-            gauge.set(power); // Définit la valeur actuelle
+            gauge.set(power);
         }
 
         function displayData(data) {
